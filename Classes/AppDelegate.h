@@ -59,8 +59,8 @@ public:
     */
     virtual void applicationWillEnterForeground();
 
-    static const constexpr float DESIGN_WIDTH = 720.0F;
-    static const constexpr float DESIGN_HEIGHT = 1280.0F;
+    static const constexpr float DESIGN_WIDTH = 540.0F;
+    static const constexpr float DESIGN_HEIGHT = 960.0F;
     static cocos2d::Size designResolutionSize;
 };
 
