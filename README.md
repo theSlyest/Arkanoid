@@ -1,2 +1,2 @@
 # Arkanoid
- Mobile Arkanoid clone
+ Mobile Arkanoid clone made with Cocos2d-x
