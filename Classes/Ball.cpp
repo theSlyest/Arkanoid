@@ -18,7 +18,8 @@ bool Ball::init(float bottom) {
 												   PhysicsMaterial(0.F, 1.F, 0.F));
 	this->_physicsBody->setGravityEnable(false);
 	this->_physicsBody->setDynamic(true);
-	this->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
+	this->_physicsBody->setCategoryBitmask(0x01);
+	this->_physicsBody->setContactTestBitmask(0x02);
 	this->addComponent(this->_physicsBody);
 	this->setTag(1);
 	this->setUserObject(this);

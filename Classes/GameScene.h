@@ -15,9 +15,6 @@ class GameScene : public cocos2d::Scene
 {
 public:
 
-	Paddle* paddle;
-	Ball* ball;
-
 	static cocos2d::Scene* createScene();
 
 	virtual bool init();
@@ -26,8 +23,6 @@ public:
 	CREATE_FUNC(GameScene);
 
 	void addScore(uint8_t points);
-
-	void showStartButton();
 
 	void reset();
 
@@ -45,6 +40,8 @@ private:
 	cocos2d::MenuItemLabel* _startItem;
 	cocos2d::Menu* _menu;
 	bool _finished;
+	Paddle* _paddle;
+	Ball* _ball;
 
 	void checkNode(cocos2d::Node* node);
 
