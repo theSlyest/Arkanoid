@@ -62,6 +62,7 @@ list(APPEND GAME_SOURCE
      Classes/Controls.cpp
      Classes/GameScene.cpp
      Classes/Paddle.cpp
+     Classes/PhysicsBodyParser.cpp
      Classes/WallBlock.cpp
      )
 list(APPEND GAME_HEADER
@@ -71,6 +72,7 @@ list(APPEND GAME_HEADER
      Classes/Controls.h
      Classes/GameScene.h
      Classes/Paddle.h
+     Classes/PhysicsBodyParser.h
      Classes/WallBlock.h
      )
 

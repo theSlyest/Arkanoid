@@ -3,6 +3,7 @@
 //
 
 #include "Paddle.h"
+#include "PhysicsBodyParser.h"
 
 USING_NS_CC;
 
@@ -13,11 +14,15 @@ bool Paddle::init() {
 	this->initWithFile("paddleBlu.png");
 	this->_moving = false;
 	this->_right = false;
-	auto physicsBody = PhysicsBody::createBox(this->getContentSize(),
-											  PhysicsMaterial(0.F, 1.F, 0.F));
+
+//	auto physicsBody = PhysicsBody::createBox(this->getContentSize(),
+//											  PhysicsMaterial(0.F, 1.F, 0.F));
+	PhysicsBodyParser::getInstance()->parseJsonFile("paddle.json");
+	auto physicsBody = PhysicsBodyParser::getInstance()->bodyFromJson(this, "paddleBlu.png",
+															   PhysicsMaterial(0.F, 1.F, 0.F));
 	physicsBody->setDynamic(false);
 	this->addComponent(physicsBody);
-
+	PhysicsBodyParser::getInstance()->clearCache();
 	return true;
 }
 
