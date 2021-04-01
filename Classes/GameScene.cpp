@@ -48,6 +48,8 @@ bool GameScene::init() {
 			Vec2(xHalf, -yHalf)
 	};
 	auto edge = PhysicsBody::createEdgeChain(points, 4, PhysicsMaterial(0.F, 1.F, 0.F));
+	edge->setCategoryBitmask(0x02);
+	edge->setContactTestBitmask(0x01);
 	bg->addComponent(edge);
 	this->addChild(bg);
 
@@ -131,12 +133,6 @@ bool GameScene::init() {
 
 	auto contactListener = EventListenerPhysicsContact::create();
 
-//	contactListener->onContactBegin = [this](PhysicsContact &contact) {
-//		this->checkNode(contact.getShapeA()->getBody()->getOwner());
-//		this->checkNode(contact.getShapeB()->getBody()->getOwner());
-//		return false;
-//	};
-
 	contactListener->onContactSeparate = [this](PhysicsContact &contact) {
 		this->checkNode(contact.getShapeA()->getBody()->getOwner());
 		this->checkNode(contact.getShapeB()->getBody()->getOwner());
@@ -200,11 +196,10 @@ void GameScene::stopGame() {
 }
 
 bool GameScene::checkBricks() {
-	for (int l = 0; l < 3; ++l) {
-		for (int c = 0; c < 4; ++c) {
-			if (this->_bricks[l][c] != nullptr && this->_bricks[l][c]->remainingHits() == 0)
+	for (auto &row : this->_bricks)
+		for (auto brick : row)
+			if (brick != nullptr && brick->remainingHits() > 0)
 				return false;
-		}
-	}
+
 	return true;
 }

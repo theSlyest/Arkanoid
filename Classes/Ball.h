@@ -11,7 +11,7 @@ class Ball : public cocos2d::Sprite {
 public:
 	static const cocos2d::Vec2 INIT_VELOCITY;
 	static const constexpr float VELOCITY_FACTOR = 1.1F;
-	static const constexpr int REQ_COLLISIONS = 8;
+	static const constexpr int REQ_COLLISIONS = 20;
 
 	static Ball* create(float bottom);
 

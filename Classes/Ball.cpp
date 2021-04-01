@@ -39,9 +39,11 @@ Ball *Ball::create(float bottom) {
 
 void Ball::hit() {
 	++this->_collisions;
+	cocos2d::log("Ball collisions = %d", this->_collisions);
 	if (this->_collisions == Ball::REQ_COLLISIONS) {
 		this->_collisions = 0;
 		this->_physicsBody->setVelocity(this->_physicsBody->getVelocity() * Ball::VELOCITY_FACTOR);
+		cocos2d::log("Ball velocity changed");
 	}
 }
 
