@@ -15,10 +15,11 @@ bool Brick::init(int8_t hits) {
 	this->_remainingHits = hits;
 	this->initWithFile(this->getSpriteName());
 
-	this->_physicsBody = PhysicsBody::createBox(this->getContentSize() - Size(1.F, 1.F),
+	this->_physicsBody = PhysicsBody::createBox(this->getContentSize(),
 												PhysicsMaterial(0.F, 1.F, 0.F));
 	this->_physicsBody->setDynamic(false);
-	this->_physicsBody->setContactTestBitmask(0xFFFFFFFF);
+	this->_physicsBody->setCategoryBitmask(0x02);
+	this->_physicsBody->setContactTestBitmask(0x01);
 	this->addComponent(this->_physicsBody);
 	this->setTag(2);
 	this->setUserObject(this);
@@ -52,6 +53,6 @@ uint8_t Brick::hit() {
 	return 0;
 }
 
-int8_t Brick::remainingHits() {
+int8_t Brick::remainingHits() const {
 	return this->_remainingHits;
 }

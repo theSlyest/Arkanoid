@@ -13,7 +13,7 @@ public:
 
 	uint8_t hit();
 
-	int8_t remainingHits();
+	int8_t remainingHits() const;
 
 private:
 	static const char* SPRITE_NAME;

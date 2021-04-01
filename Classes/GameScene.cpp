@@ -23,7 +23,7 @@ bool GameScene::init() {
 	this->getPhysicsWorld()->setGravity(Vec2(0.F, 0.F));
 
 	// optional: enable debug draw
-	this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+//	this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -74,17 +74,17 @@ bool GameScene::init() {
 		this->addChild(square);
 	}
 
-	this->paddle = Paddle::create();
-	this->paddle->setPosition(midX, bottom + 18.F);
-	this->addChild(this->paddle);
-	this->paddle->unscheduleUpdate();
+	this->_paddle = Paddle::create();
+	this->_paddle->setPosition(midX, bottom + 18.F);
+	this->addChild(this->_paddle);
+	this->_paddle->unscheduleUpdate();
 
-	this->ball = Ball::create(bottom);
-	this->ball->setPosition(midX, this->paddle->getPositionY() + 23.F);
-	this->ball->onReachBottom([this]() {
+	this->_ball = Ball::create(bottom);
+	this->_ball->setPosition(midX, this->_paddle->getPositionY() + 23.F);
+	this->_ball->onReachBottom([this]() {
 		this->stopGame();
 	});
-	this->addChild(this->ball);
+	this->addChild(this->_ball);
 
 	top -= 128.F;
 	left += 144.F;
@@ -114,22 +114,29 @@ bool GameScene::init() {
 
 	this->_controls = new Controls(this);
 	this->_controls->onKeyPressed([this](bool right) {
-		this->paddle->setDirection(right);
-		this->paddle->start();
+		this->_paddle->setDirection(right);
+		this->_paddle->start();
 	});
 
 	this->_controls->onTouch([this](const Vec2 &location) {
-		if (location.x != this->paddle->getPositionX()) {
-			this->paddle->setDirection(location.x > this->paddle->getPositionX());
-			this->paddle->start();
+		if (location.x != this->_paddle->getPositionX()) {
+			this->_paddle->setDirection(location.x > this->_paddle->getPositionX());
+			this->_paddle->start();
 		}
 	});
 
 	this->_controls->onRelease([this]() {
-		this->paddle->stop();
+		this->_paddle->stop();
 	});
 
 	auto contactListener = EventListenerPhysicsContact::create();
+
+//	contactListener->onContactBegin = [this](PhysicsContact &contact) {
+//		this->checkNode(contact.getShapeA()->getBody()->getOwner());
+//		this->checkNode(contact.getShapeB()->getBody()->getOwner());
+//		return false;
+//	};
+
 	contactListener->onContactSeparate = [this](PhysicsContact &contact) {
 		this->checkNode(contact.getShapeA()->getBody()->getOwner());
 		this->checkNode(contact.getShapeB()->getBody()->getOwner());
@@ -180,13 +187,14 @@ void GameScene::reset() {
 
 void GameScene::startGame() {
 	this->_controls->setEnabled(true);
-	this->ball->start();
+	this->_ball->start();
 	this->_startItem->setVisible(false);
 }
 
 void GameScene::stopGame() {
 	this->_finished = true;
 	this->_controls->setEnabled(false);
+	this->_paddle->stop();
 	this->_startItem->setString("TRY AGAIN");
 	this->_startItem->setVisible(true);
 }
