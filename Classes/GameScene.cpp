@@ -48,6 +48,8 @@ bool GameScene::init() {
 			Vec2(xHalf, -yHalf)
 	};
 	auto edge = PhysicsBody::createEdgeChain(points, 4, PhysicsMaterial(0.F, 1.F, 0.F));
+	edge->setCategoryBitmask(0x02);
+	edge->setContactTestBitmask(0x01);
 	bg->addComponent(edge);
 	this->addChild(bg);
 
@@ -196,7 +198,7 @@ void GameScene::stopGame() {
 bool GameScene::checkBricks() {
 	for (auto &row : this->_bricks)
 		for (auto brick : row)
-			if (brick != nullptr && brick->remainingHits() == 0)
+			if (brick != nullptr && brick->remainingHits() > 0)
 				return false;
 
 	return true;
