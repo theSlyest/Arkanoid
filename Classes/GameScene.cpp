@@ -152,7 +152,8 @@ void GameScene::checkNode(cocos2d::Node *node) {
 			points = dynamic_cast<Brick *>(node->getUserObject())->hit();
 			if (points > 0) {
 				this->addScore(points);
-				checkBricks();
+				if (checkBricks())
+					this->stopGame();
 			}
 			break;
 		default:
